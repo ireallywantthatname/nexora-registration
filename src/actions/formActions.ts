@@ -26,7 +26,7 @@ export async function handleFormSubmission(data: FormFields) {
 
   console.log(data);
 
-  await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulating async work
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
   return { success: true };
 }
