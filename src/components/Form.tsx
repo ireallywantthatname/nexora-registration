@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormFields, formSchema } from "@/lib/formTypes";
 import { handleFormSubmission } from "@/actions/formActions";
+import { useState } from "react";
 
 const Form = () => {
   const {
@@ -12,9 +13,13 @@ const Form = () => {
     formState: { errors },
   } = useForm<FormFields>({ resolver: zodResolver(formSchema) });
 
+  const [response, setResponse] = useState<any>(null);
+
   const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
     console.log(data);
-    await handleFormSubmission(data);
+    const response = await handleFormSubmission(data);
+    console.log(response);
+    setResponse(response);
   };
 
   return (
@@ -40,6 +45,9 @@ const Form = () => {
             <div className="text-red-700">{errors.university_name.message}</div>
           )}
         </label>
+        {response?.error && (
+          <div className="text-red-700">{response.error}</div>
+        )}
       </div>
       <hr />
       <div className="m-4">
@@ -67,6 +75,9 @@ const Form = () => {
         </label>
         {errors.leader_email && (
           <div className="text-red-700">{errors.leader_email.message}</div>
+        )}
+        {response?.error && (
+          <div className="text-red-700">{response.error}</div>
         )}
         <label>
           Food Preferance
@@ -109,6 +120,9 @@ const Form = () => {
           {errors.member1_email && (
             <div className="text-red-700">{errors.member1_email.message}</div>
           )}
+          {response?.error && (
+            <div className="text-red-700">{response.error}</div>
+          )}
         </label>
         <label>
           Food Preferance
@@ -150,6 +164,9 @@ const Form = () => {
           />
           {errors.member2_email && (
             <div className="text-red-700">{errors.member2_email.message}</div>
+          )}
+          {response?.error && (
+            <div className="text-red-700">{response.error}</div>
           )}
         </label>
         <label>
